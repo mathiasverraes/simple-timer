@@ -56,6 +56,7 @@
         var pie = d3.layout.pie().sort(null);
 
         var arc = d3.svg.arc()
+                .innerRadius(radius/4)
                 .outerRadius(radius);
         var svg = d3.select(element).append("svg")
                 .attr("width", width)
