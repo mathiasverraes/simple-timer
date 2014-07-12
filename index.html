@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Mastertime</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <style>
+        body {padding:20px;}
+        #clock { margin: 0 auto; }
+        path.color0 { fill: white; }
+        path.color1 { fill: red; }
+    </style>
+</head>
+<body>
+
+<div class="btn-group">
+    <button type="button" class="btn btn-default" onclick="runTimer(60)">1 minute</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(180)">3 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(300)">5 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(480)">7 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(600)">10 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(900)">15 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(1200)">20 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(1500)">25 minutes</button>
+</div>
+
+<div id="clock"></div>
+<audio src="alarm.mp3" id="beep" autostart="false"></audio>
+
+<script>
+    var timeoutID;
+
+    function ringAlarm() {
+        document.getElementById('beep').play();
+    }
+
+    function clearNode(node) {
+        while (node.hasChildNodes()) {
+            node.removeChild(node.lastChild);
+        }
+    }
+
+    function runTimer(timerDuration) {
+        clearTimeout(timeoutID);
+        clearNode(document.getElementById('clock'));
+
+
+        var element = '#clock';
+        var width = window.innerWidth * .9;
+        var height = window.innerHeight * .9;
+        var radius = Math.min(width, height) / 2;
+        var pie = d3.layout.pie().sort(null);
+
+        var arc = d3.svg.arc()
+                .outerRadius(radius);
+        var svg = d3.select(element).append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        var path = svg.selectAll("path");
+
+
+        function update(data) {
+            var pathData = path.data(pie(data));
+            pathData
+                    .enter()
+                    .append("path")
+                    .attr("class", function (d, i) {
+                        return "color" + i;
+                    })
+                    .attr("d", arc)
+            ;
+        }
+
+
+        /**
+         *
+         * @param timerDuration
+         * @param timePassed
+         * @returns {number}
+         */
+        function loop(timerDuration, timePassed) {
+            return setTimeout(function () {
+                var leftoverTime = timerDuration - timePassed;
+                update([timerDuration - leftoverTime, leftoverTime]);
+
+                if (timePassed < timerDuration) {
+                    loop(timerDuration, ++timePassed)
+                } else {
+                    ringAlarm();
+                }
+
+            }, 1000);
+        }
+
+
+        timeoutID = loop(timerDuration, 0);
+    }
+
+
+</script>
+
+</body>
+</html>
