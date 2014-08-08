@@ -1,8 +1,6 @@
 # Simple timer
 
-[http://verraes.net/simple-timer/](http://verraes.net/simple-timer/)
-
-This is how I manage my kids' TV time. 
+This is how I manage my kids' TV time. See it in action at [http://verraes.net/simple-timer/](http://verraes.net/simple-timer/)
 
 Features:
 - It's bright red
