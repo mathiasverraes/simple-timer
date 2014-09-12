@@ -20,17 +20,17 @@
 <a href="https://github.com/mathiasverraes/simple-timer"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
 <div class="btn-group">
-    <button type="button" class="btn btn-default" onclick="runTimer(60)">1 minute</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(180)">3 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(300)">5 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(480)">7 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(600)">10 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(900)">15 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(1200)">20 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(1500)">25 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(1800)">30 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(2700)">45 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(3600)">60 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(1)">1 minute</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(3)">3 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(5)">5 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(7)">7 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(10)">10 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(15)">15 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(20)">20 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(25)">25 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(30)">30 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(45)">45 minutes</button>
+    <button type="button" class="btn btn-default" onclick="runTimer(60)">60 minutes</button>
 </div>
 
 <div id="clock"></div>
@@ -50,6 +50,17 @@
     }
 
     function runTimer(timerDuration) {
+        
+        ga('send', {
+          'hitType': 'event',          
+          'eventCategory': 'Interact',   
+          'eventAction': 'Start timer',      
+          'eventLabel': 'button',
+          'eventValue': timerDuration
+        });
+        
+        timerDuration = timerDuration * 60;
+        
         clearTimeout(timeoutID);
         clearNode(document.getElementById('clock'));
 
