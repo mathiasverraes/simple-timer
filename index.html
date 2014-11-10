@@ -5,7 +5,7 @@
     <title>Simple Timer</title>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link href='//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
 
     <link rel="shortcut icon" href="favicon.ico">
@@ -18,32 +18,46 @@
             font-family: 'RobotoDraft', sans-serif;
         }
         body {padding:20px;}
-        #clock { margin: 0 auto;  }
+        #clock { margin: 35px auto auto auto;  }
         path.color0 { fill: #E5E5E5; }
         path.color1 { fill: red; }
     </style>
 </head>
 <body>
 
-<a href="https://github.com/mathiasverraes/simple-timer"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
 
-<div class="btn-group">
-    <button type="button" class="btn btn-default" onclick="runTimer(1)">1 minute</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(3)">3 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(5)">5 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(7)">7 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(10)">10 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(15)">15 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(20)">20 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(25)">25 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(30)">30 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(45)">45 minutes</button>
-    <button type="button" class="btn btn-default" onclick="runTimer(60)">60 minutes</button>
-</div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#" onclick="runTimer(1)">1 min</a></li>
+                <li><a href="#" onclick="runTimer(3)">3 min</a></li>
+                <li><a href="#" onclick="runTimer(5)">5 min</a></li>
+                <li><a href="#" onclick="runTimer(7)">7 min</a></li>
+                <li><a href="#" onclick="runTimer(10)">10 min</a></li>
+                <li><a href="#" onclick="runTimer(15)">15 min</a></li>
+                <li><a href="#" onclick="runTimer(20)">20 min</a></li>
+                <li><a href="#" onclick="runTimer(25)">25 min</a></li>
+                <li><a href="#" onclick="runTimer(30)">30 min</a></li>
+                <li><a href="http://verraes.net/#contact">Contact</a></li>
+            </ul>
+
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
 <div id="clock"></div>
-<audio src="alarm.mp3" id="beep" autostart="false"></audio>
 
+<audio src="alarm.mp3" id="beep" autostart="false"></audio>
 <script>
     var timeoutID;
 
@@ -58,24 +72,24 @@
     }
 
     function runTimer(durationinMinutes) {
-        
+
         ga('send', {
-          'hitType': 'event',          
-          'eventCategory': 'Start timer',   
+          'hitType': 'event',
+          'eventCategory': 'Start timer',
           'eventAction': 'Duration: '+durationinMinutes+'min',
           'eventLabel': 'Button',
           'eventValue': durationinMinutes
         });
-        
+
         durationinSeconds = durationinMinutes * 60;
-        
+
         clearTimeout(timeoutID);
         clearNode(document.getElementById('clock'));
 
 
         var element = '#clock';
-        var width = window.innerWidth * .9;
-        var height = window.innerHeight * .9;
+        var width = window.innerWidth * .8;
+        var height = window.innerHeight * .8;
         var radius = Math.min(width, height) / 2;
         var pie = d3.layout.pie().sort(null);
 
@@ -128,6 +142,14 @@
     }
 
 
+    // close the navbar on click
+    $(document).ready(function () {
+        $(".navbar-nav li a").click(function(event) {
+            $(".navbar-collapse").collapse('hide');
+        });
+    });
+
+
 </script>
 
 <script>
@@ -140,6 +162,8 @@
   ga('send', 'pageview');
 
 </script>
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 </body>
 </html>
