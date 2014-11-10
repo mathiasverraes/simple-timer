@@ -49,17 +49,17 @@
         }
     }
 
-    function runTimer(timerDuration) {
+    function runTimer(durationinMinutes) {
         
         ga('send', {
           'hitType': 'event',          
           'eventCategory': 'Start timer',   
-          'eventAction': 'Duration: '+timerDuration+'min',      
+          'eventAction': 'Duration: '+durationinMinutes+'min',
           'eventLabel': 'Button',
-          'eventValue': timerDuration
+          'eventValue': durationinMinutes
         });
         
-        timerDuration = timerDuration * 60;
+        durationinSeconds = durationinMinutes * 60;
         
         clearTimeout(timeoutID);
         clearNode(document.getElementById('clock'));
@@ -116,7 +116,7 @@
         }
 
 
-        timeoutID = loop(timerDuration, 0);
+        timeoutID = loop(durationinSeconds, 0);
     }
 
 
